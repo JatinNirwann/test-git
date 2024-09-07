@@ -1,1 +1,0 @@
-this is the file which i created while learning git basics from odin project
