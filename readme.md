@@ -1,1 +1,1 @@
-Hello Odin!
+This repository was created as part of my learning journey through The Odin Project. It contains various notes and examples that I compiled while working through the exercises and projects. It serves as a space for testing and experimenting with different concepts.
