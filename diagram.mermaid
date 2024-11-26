@@ -1,0 +1,58 @@
+classDiagram
+    class MetroRoutingSystem {
+        -unordered_map~string, vector~pair~string, int>>>~ adjacencyList
+        -unordered_map~string, string~ originalNameMapping
+        +normalizeStationName(string stationName) : string
+        +insertInAdjacencyList(string color, vector~tuple~string, int, int>>~ metroLine) : void
+        +initialize(unordered_map~string, int>& dist) : void
+    }
+
+    class Station {
+        -string name
+        -string normalizedName
+        -vector~Connection~ connections
+        +getName() : string
+        +getNormalizedName() : string
+        +getConnections() : vector~Connection~
+    }
+
+    class Connection {
+        -string destinationStation
+        -int travelTime
+        +getDestination() : string
+        +getTravelTime() : int
+    }
+
+    class ShortestPathAlgorithm {
+        -unordered_map~string, int~ timeTaken
+        -unordered_map~string, string~ parentStations
+        +findShortestPath(string source, string destination) : vector~string~
+        +calculateTotalTime(string source, string destination) : int
+    }
+
+    class MetroLine {
+        -string lineName
+        -vector~Station~ stations
+        +getLineName() : string
+        +getStations() : vector~Station~
+    }
+
+    class UserInterface {
+        +getSourceStation() : string
+        +getDestinationStation() : string
+        +displayRoute(vector~string~ route) : void
+        +displayTravelTime(int time) : void
+    }
+
+    class TimeCalculator {
+        +getCurrentTime() : time_t
+        +calculateExpectedArrivalTime(int travelTime) : time_t
+    }
+
+    MetroRoutingSystem "1" *-- "many" Station : contains
+    MetroRoutingSystem "1" -- "1" ShortestPathAlgorithm : uses
+    Station "1" *-- "many" Connection : has
+    MetroRoutingSystem "1" -- "many" MetroLine : manages
+    UserInterface "1" -- "1" MetroRoutingSystem : interacts with
+    TimeCalculator "1" -- "1" UserInterface : supports
+    ShortestPathAlgorithm "1" -- "many" Connection : calculates paths through
